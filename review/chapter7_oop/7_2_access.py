@@ -41,43 +41,26 @@ class Student(object):
     """
 
     def __init__(self, name, gender):
-        self.name = name
+        self.__name = name
         self.set_gender(gender)
 
-    def get_gender(self):
-        return self._gender
-
     def get_name(self):
-        return self.name
+        return self.__name
+
+    def get_gender(self):
+        return self.__gender
 
     def set_gender(self, gender):
         if gender in ['male', 'female']:
-            self._gender = gender
+            self.__gender = gender
         else:
             raise ValueError("Invalid gender. Choose from'male' or 'female'.")
-
-
-class Teacher(object):
-    """
-    @property装饰器就是负责把一个方法变成属性调用的：
-    """
-
-    @property
-    def name(self, name):
-        self.__name = name
-
-    @property
-    def gender(self, gender):
-        self.__gender = gender
-
-    @name.setter
-    def name(self, name):
-        self.__name = name
 
 
 if __name__ == '__main__':
     bart = Student('Bart Simpson', 'male')
     print('姓名：%s，性别：%s' % (bart.get_name(), bart.get_gender()))
+
     """
     如果外部代码要获取name和score怎么办？可以给Student类增加get_name和get_score这样的方法：
     如果又要允许外部代码修改score怎么办？可以再给Student类增加set_score方法：
@@ -86,10 +69,6 @@ if __name__ == '__main__':
     # bart.__name = 'New Name'  # 无法直接访问__name
     # print(bart.__name)  # New Name
 
-    teacher1 = Teacher()
-    teacher1.name = 'Selene'
-    teacher1.gender = 'female'
-    print('姓名：%s，性别：%s' % (teacher1.name, teacher1.gender))
     # 但是，如果外部代码要获取name和score怎么办？可以给Student类增加get_name和get_score这样的方法：
     # 如果又要允许外部代码修改score怎么办？可以再给Student类增加set_score方法：
     # 你也许会问，原先那种直接通过bart.score = 99也可以修改啊，为什么要定义一个方法大费周折？因为在方法中，可以对参数做检查，避免传入无效的参数：
